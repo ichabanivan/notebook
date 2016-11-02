@@ -181,11 +181,6 @@ console.assert(two < three, "Два меньше трех")
 #### console.group() and console.groupEnd();
 
 Функции для группировки вывода. Функция **group()** открывает группу сообщений, в качестве параметра принимает название группы (поддерживается форматирование, как в **console.log()).groupEnd()** закрывает группу
-```js
-var two = 3;
-var three = 2;
-console.assert(two < three, "Два меньше трех")
-```
 
 #### console.time() и console.timeEnd()
 
