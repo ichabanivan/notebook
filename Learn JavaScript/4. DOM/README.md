@@ -226,7 +226,7 @@ var section = document.querySelector('.section'),
 section.insertBefore(newDiv, secondP);
 ```
 
-Приведенный выше код вставить новый div перед <p>text-2</p>.
+Приведенный выше код вставить новый div перед `text-2`.
 
 Для того, чтобы удалить узел, можно воспользоваться методом removeChild
 
