@@ -54,7 +54,7 @@ var button = document.querySelector('button');
 
 Это наиболее предпочтительный вариант. Мы рекомендуем использовать именно его. При помощи данного метода, вы можете задавать несколько обработчиков события.
 
-```html
+```js
 var button = document.querySelector('button');
 
 button.addEventListener('click', function() {
