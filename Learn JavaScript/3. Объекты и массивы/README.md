@@ -1,7 +1,30 @@
 # Объекты и массивы
 
-## Перечисление свойств объекта
+## запись и удаление свойств
 
+```js
+let obj = {
+  name: "Ivan",
+  lastName: "Chaban",
+  old: 0
+};
+
+// Запись свойств
+obj['age'] = 20;
+obj.height = 180;
+
+console.log(obj); // { name: 'Ivan', lastName: 'Chaban', old: 0, age: 20, height: 180 }
+
+// Удаление свойств
+
+delete obj.height;
+delete obj['age'];
+
+console.log(obj); // { name: 'Ivan', lastName: 'Chaban', old: 0 }
+
+```
+
+## Перечисление свойств объекта
 
 #### Object.toString() and Object.valueOf()
 
@@ -42,6 +65,17 @@ if(obj1 == obj2){ // 80 == 40 // FALSE
 }
 // console.log(obj2)  // Иван Иванов, сработает если не указан valueOf()
 // valueOf() имеет больше приоритет чем toString()
+```
+
+## Перебор объекта
+
+```js
+// Перебор объекта
+
+for (let prop in obj){
+  console.log(obj[prop]); // Ivan, Chaban, 0
+  console.log(prop); // name, lastName, old
+};
 ```
 
 #### Obejct.keys(obj)
@@ -249,31 +283,31 @@ human2.sayHello(); //выведет Привет! Меня зовут Света
 При создании свойства обычным способом - равно **true**.
 При создании свойства через Object.defineProperty - равно **false**.
 ```js
-var obj = {
-    name: "Петр",
-    lastName: "Иванов",
-    age: 42
-}
 
-Object.defineProperty(obj, fullName, {
-    // value: "User", // Значение по умолчанию, нельзя использовать при использовании get()
-    enumerable: false, // Не будет доступно при переборе объекта оператором for..in
-    writable: false, // Значение свойста не может быть в любой момент изменено с помощью оператора присваивания
-    get() {
-        return `${this.name} ${this.lastName}`
-    },
-    set(value) {
-        let array = value.split(" ")
+let obj5 = {
+  name: 'Иван',
+  lastName: 'Иванов',
+  old: 40
+};
 
-        this.name = array[0];
-        this.lastName = array[1];
-    }
-})
-
-obj.fullName = "Jake Fulton" // Вызывает set
-alert(obj.name) // Jake
-
-// console.log(obj.fullName) // Петр Иванов Вызывает get()
+// Свойства созданые через Object.defineProperty() по умолчанию имеют enumerable: false(скрытые), writable = false(не перезаписываемые)
+Object.defineProperty(obj, "fullName", {
+  configurable: true, // В дальнейшем можно изменять дискрипторы свойства
+  // value: "!!!", // Значение по умолчанию, нельзя использовать при использовании get()
+  // enumerable: false, // Не будет доступно при переборе объекта оператором for..in
+  // writable: false, // Значение свойста не может быть в любой момент изменено с помощью оператора присваивания
+  get() { // Работает только если нету value
+    return `${this.name} ${this.lastName}`
+  },
+  set(value){
+    [this.name, this.lastName] = value.split(" ");
+  }
+});
+// get() Выполняется функция при попытке обратится к свойству
+console.log(obj5.fullName); // !!! // Иван Иванов
+// set() Выполняется функция при попытке что-то записать
+obj5.fullName = "Петр Петров";
+console.log(obj5.name, obj5.lastName); // Петр Петров
 ```
 
 ## Массивы
@@ -406,6 +440,12 @@ arr.slice(-3,-2); //возвращает [3]
 
 ```js
 // Удаление элементов:
+let array = [100, 500, "Hi"];
+delete array[1];
+console.log(array); // [ 100, , 'Hi', 1 ]
+array.splice(1, 2);
+console.log(array); //[ 100, 1 ]
+
 var fruits = ["апельсины", "яблоки", "груши", "виноград"],
 deleted = fruits.splice(2, 2);
 console.log(deleted); //выведет ["груши", "виноград"]
