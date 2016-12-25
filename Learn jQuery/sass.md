@@ -1,3 +1,4 @@
+```scss
 .container{
   margin: auto;
   width: 1200px;
@@ -24,6 +25,9 @@
     width: 320px;
   }
 }
+```
+
+```js
 .container {
   background: #fff;
   margin: auto;
@@ -58,3 +62,4 @@
     background-color: #1fcc0e;
   }
 }
+```
