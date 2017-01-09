@@ -1,4 +1,19 @@
 <h1>ООП</h1>
+```js
+let a = [
+  (1).constructor,  // Number
+  true.constructor, // Boolean
+  [].constructor,   // Array
+  "".constructor,   // String
+  (function () {}).constructor, // Function
+  {}.constructor,    // Object
+  (/./).constructor, // RegExp
+  NaN.constructor    // Number
+];
+
+console.log(null instanceof Object) // false
+typeof null // "object"
+```
 <h2>this</h2>
 <p>Создадим два объекта.</p>
 ```js
