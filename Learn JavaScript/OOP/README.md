@@ -981,3 +981,112 @@ console.log(counter1.get());
 <p>
   <em>Это и есть паттерн “Модуль”, механизм позволяющий скрывать детали своей реализации.</em>
 </p>
+<p>Но давайте попробуем наполнить этот объект методами, то есть перенесем объявление методов из функции-конструктора в свойство prototype этого конструктора</p>
+```js
+function Counter(initial) {
+  this.counter = initial
+};
+
+Counter.prototype.inc = function () {
+  this.counter++
+};
+
+Counter.prototype.dec = function () {
+  this.counter--
+};
+
+function ResetableCounter(initial) {
+  Counter.call(this)
+
+  this.initial = initial;
+};
+
+ResetableCounter.prototype = Object.create(Counter.prototype)
+
+ResetableCounter.prototype.inc = function () {
+  Counter.prototype.inc.call(this);
+  console.log("+")
+};
+
+ResetableCounter.prototype.dec = function () {
+  Counter.prototype.dec.call(this);
+  console.log("-")
+};
+
+ResetableCounter.prototype.reset = function () {
+  this.counter = this.initial
+};
+
+let c1 = new Counter(100);
+let c2 = new ResetableCounter(100);
+
+c2.inc()
+c2.inc()
+c2.inc()
+c2.inc()
+c2.inc()
+c2.inc()
+c2.dec()
+c2.dec()
+c2.dec()
+c2.reset()
+
+console.log(c1)
+console.log(c2)
+```
+<p>Вариант для ES6</p>
+```js
+class Counter {
+  constructor(initial) {
+    this.counter = initial;
+  }
+
+  inc() {
+    this.counter++;
+  }
+
+  dec() {
+    this.counter--;
+  }
+};
+
+class ResetableCounter extends Counter {
+  constructor(initial){
+    super(initial); // Вызываем конструктор родителя
+
+    this.initial = initial;
+  }
+
+  inc() {
+    super.inc();
+    console.log("+")
+  }
+
+  dec() {
+    super.dec();
+    console.log("-")
+  }
+
+  reset() {
+    this.counter = this.initial;
+    console.log("+-+")
+  }
+}
+
+let c1 = new Counter(100);
+let c2 = new ResetableCounter(100);
+
+c2.inc();
+c2.inc();
+c2.inc();
+c2.inc();
+c2.inc();
+c2.inc();
+c2.dec();
+c2.dec();
+c2.dec();
+c2.reset();
+
+console.log(c1);
+console.log(c2);
+```
