@@ -285,18 +285,31 @@ a.f();
 </p>
 <p>Разберем оба варианта.</p>
 ```js
-func.call(this);
+var a = {
+  prop: 1,
+  f: function() {
+      var func = function() {
+        console.log(this.prop)
+      };
+      func.call(this)
+  }
+};
 ```
 <p>Здесь мы просто, так сказать, пробросили контекст во внутреннюю функцию, думаю здесь не нужно больше пояснений.</p>
 <p>И второй вариант:</p>
 ```js
-var that = this;
-
-var func = function () {
-  console.log(that.prop)
+var a = {
+  prop: 1,
+  f: function() {
+      var that = this;
+      
+      var func = function() {
+        console.log(that.prop)
+      };
+      
+      func()
+  }
 };
-
-func();
 ```
 <p>Здесь мы просто сохранили текущий контекст функции в переменную и использовали эту переменную внутри вложенной функции.</p>
 <p>
