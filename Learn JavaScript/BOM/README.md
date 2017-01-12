@@ -28,7 +28,7 @@ var newwin = window.open();
 
 if (newwin.closed) {
   document.getElementById("mes").innerHTML = "Окно newwin было закрыто.";
-} else{
+} else {
   document.getElementById("mes").innerHTML = "Окно newwin открыто в данный момент.";
 }
 ```
